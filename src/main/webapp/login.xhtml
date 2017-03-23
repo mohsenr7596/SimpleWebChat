@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/login.css"/>
+
+</head>
+
+<body>
+
+<h2>Login Form</h2>
+
+<form action="/login" method="post">
+    <div class="imgcontainer">
+        <img src="../resources/images/avatar.png" alt="Avatar" class="avatar"/>
+    </div>
+
+    <div class="container">
+        <label style="font-weight: bold;">Username</label>
+        <input type="text" name="uname" required="required" title="Username"/>
+
+        <label style="font-weight: bold;">Password</label>
+        <label>
+            <input type="text" name="psw" required="required"/>
+        </label>
+
+        <button type="submit">Login</button>
+
+        <input type="checkbox" checked="checked">Remember me</input>
+    </div>
+
+</form>
+
+
+</body>
+</html>
