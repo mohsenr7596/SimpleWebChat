@@ -15,23 +15,32 @@
 
 <form action="/login" method="post">
     <div class="imgcontainer">
-        <img src="../resources/images/avatar.png" alt="Avatar" class="avatar"/>
+        <img src="/resources/images/avatar.png" alt="Avatar" class="avatar"/>
     </div>
 
     <div class="container">
         <label style="font-weight: bold;">Username</label>
-        <input type="text" name="uname" required="required" title="Username"/>
+        <label>
+            <input type="text" name="uname"/>
+        </label>
 
         <label style="font-weight: bold;">Password</label>
         <label>
-            <input type="text" name="psw" required="required"/>
+            <input type="text" name="psw"/>
         </label>
 
         <button type="submit">Login</button>
 
-        <input type="checkbox" checked="checked">Remember me</input>
+        <label>
+            <input type="checkbox" checked="checked" title="Remmember me"/>
+        </label>
     </div>
 
+
+    <div class="container" style="background-color: #f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw"><a href="#">Forgot Password?</a></span>
+    </div>
 </form>
 
 
