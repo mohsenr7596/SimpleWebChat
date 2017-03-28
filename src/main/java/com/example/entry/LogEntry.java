@@ -13,6 +13,8 @@ import java.util.logging.Logger;
  */
 public class LogEntry {
 
+    private LogEntry() {//all method is static
+    }
 
     public static void userLogin(String username) {
 

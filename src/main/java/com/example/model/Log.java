@@ -25,7 +25,7 @@ public class Log {
     @Column(nullable = false)
     private String action;
 
-    @Column(nullable = true)
+    @Column
     private String otherInformation;
 
     public Log(String user, String action, String... otherInformation) {

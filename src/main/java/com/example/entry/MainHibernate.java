@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 /**
  * Created on 26/03/2017 in SimpleWebChat.
  */
-public class MainHibernate {
+class MainHibernate {
 
     private static final SessionFactory ourSessionFactory;
 
