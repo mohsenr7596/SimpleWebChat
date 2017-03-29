@@ -12,8 +12,9 @@ import javax.persistence.Table;
 @Table(name = "Users")
 public class User {
 
-    @Column(nullable = false)
+
     @Id
+    @Column(nullable = false)
     private String username;
     @Column(nullable = false)
     private String password;
@@ -26,11 +27,11 @@ public class User {
     public User() {//need for hibernate
     }
 
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
-    public String getPassword() {
+    String getPassword() {
         return password;
     }
 }

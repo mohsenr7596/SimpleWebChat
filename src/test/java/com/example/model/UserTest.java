@@ -1,38 +1,38 @@
 package com.example.model;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created on 28/03/2017 in SimpleWebChat.
  */
 public class UserTest {
 
-    private final static String username = "username";
-    private final static String password = "password";
+    private final static String USERNAME = "username";
+    private final static String PASSWORD = "password";
 
     private User user;
 
     @Before
     public void setUp() throws Exception {
 
-        user = new User(username, "password");
+        user = new User(USERNAME, PASSWORD);
     }
 
     @Test
     public void getUsername() throws Exception {
 
-        Assert.assertEquals(username, user.getUsername());
+        assertEquals(USERNAME, user.getUsername());
     }
 
     @Test
     public void getPassword() throws Exception {
 
-        Assert.assertEquals(password, user.getPassword());
+        assertEquals(PASSWORD, user.getPassword());
 
     }
-
 
 
 }

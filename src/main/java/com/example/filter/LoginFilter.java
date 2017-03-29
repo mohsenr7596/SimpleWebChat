@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 @WebFilter(filterName = "LoginFilter",
         urlPatterns = {
-                "/*"
+                "/adasdfasdfasdfasdf"
         })
 public class LoginFilter implements Filter {
 

@@ -1,6 +1,11 @@
 package com.example.entry;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,22 +14,26 @@ import java.util.logging.Logger;
  */
 public class UserEntry {
 
-    private static final String USER = "root";
-    private static final String PASS = "toor";
-
-    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost/SimpleWebChat";
-
+    private static final Properties configfile = new Properties();
     private static Logger logger = Logger.getAnonymousLogger();
+
+    private UserEntry() {
+    }
 
 
     public static String getUser(String username) {
+
+        try (InputStream resourceAsStream = new FileInputStream(new File("D:\\dev\\projects\\SimpleWebChat\\src\\main\\resources\\configure\\connector.properties"))) {
+            configfile.load(resourceAsStream);
+        } catch (IOException e) {
+            Logger.getAnonymousLogger().log(Level.SEVERE, null, e);
+        }
 
         //language=MySQL
         String sql = "SELECT * FROM Users WHERE username=?";
 
         try {
-            Class.forName(JDBC_DRIVER);
+            Class.forName(configfile.getProperty("JDBC_DRIVER"));
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, null, e);
         }//end ClassForName try block
@@ -32,7 +41,11 @@ public class UserEntry {
         logger.log(Level.INFO, "Connecting to database...");
         logger.log(Level.INFO, "Creating statement...");
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (Connection connection = DriverManager.getConnection(
+                configfile.getProperty("DB_URL"),
+                configfile.getProperty("USER"),
+                configfile.getProperty("PASS"));
+
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, username);
@@ -54,11 +67,8 @@ public class UserEntry {
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, null, e);
-            logger.log(Level.INFO, "User not found...");
+            logger.log(Level.INFO, "User not found error to connect database...");
             return "";
         }//end finally try
     }//end getUser
-
-    private UserEntry() {
-    }
 }//end UserEntry

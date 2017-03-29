@@ -10,7 +10,7 @@
         <property name="connection.password">toor</property>
 
         <!-- DB schema will be updated if needed -->
-        <property name="hbm2ddl.auto">create-drop</property>
+        <property name="hbm2ddl.auto">update</property>
         <mapping class="com.example.model.User"/>
         <mapping class="com.example.model.Log"/>
     </session-factory>
