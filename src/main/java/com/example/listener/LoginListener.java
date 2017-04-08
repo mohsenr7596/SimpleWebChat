@@ -2,7 +2,9 @@ package com.example.listener; /**
  * Created on 26/03/2017 in SimpleWebChat.
  */
 
+import com.example.G;
 import com.example.entry.LogEntry;
+import com.example.model.User;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -66,6 +68,9 @@ public class LoginListener implements ServletContextListener,
         if ("login".equalsIgnoreCase(sbe.getName())) {
 
             LogEntry.userLogin((String) sbe.getSession().getAttribute("username"));
+        } else if ("username".equalsIgnoreCase(sbe.getName())) {
+            User user = (User) sbe.getValue();
+            G.userList().put(user.getUsername(), user);
         }
     }
 

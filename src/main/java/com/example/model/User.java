@@ -27,7 +27,7 @@ public class User {
     public User() {//need for hibernate
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 

@@ -1,5 +1,7 @@
 package com.example.entry;
 
+import com.example.G;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +12,7 @@ import java.util.logging.Logger;
 public class UserEntry {
 
     private static final UserProperties PROPERTIES = new UserProperties("connector.properties");
-    private static Logger logger = Logger.getAnonymousLogger();
+    private static Logger logger = G.logger();
 
     private UserEntry() {
     }
@@ -35,10 +37,10 @@ public class UserEntry {
                 PROPERTIES.getUSER(),
                 PROPERTIES.getPASS());
 
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+             PreparedStatement psst = connection.prepareStatement(sql)) {
 
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
+            psst.setString(1, username);
+            ResultSet rs = psst.executeQuery();
 
             rs.next();
             String password = rs.getString("password");

@@ -1,24 +1,31 @@
 package com.example.filter;
 
+import com.example.G;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Created on 26/03/2017 in SimpleWebChat.
  */
 @WebFilter(filterName = "LoginFilter",
         urlPatterns = {
-                "/adasdfasdfasdfasdf"
+                "/*"
         })
 public class LoginFilter implements Filter {
 
 
+    Logger logger = G.logger();
+
+
     @Override
     public void destroy() {
+
     }
 
     @Override
