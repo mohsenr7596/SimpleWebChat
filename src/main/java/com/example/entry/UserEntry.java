@@ -1,11 +1,6 @@
 package com.example.entry;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +9,7 @@ import java.util.logging.Logger;
  */
 public class UserEntry {
 
-    private static final Properties configfile = new Properties();
+    private static final UserProperties PROPERTIES = new UserProperties("connector.properties");
     private static Logger logger = Logger.getAnonymousLogger();
 
     private UserEntry() {
@@ -23,17 +18,11 @@ public class UserEntry {
 
     public static String getUser(String username) {
 
-        try (InputStream resourceAsStream = new FileInputStream(new File("D:\\dev\\projects\\SimpleWebChat\\src\\main\\resources\\configure\\connector.properties"))) {
-            configfile.load(resourceAsStream);
-        } catch (IOException e) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, null, e);
-        }
-
         //language=MySQL
         String sql = "SELECT * FROM Users WHERE username=?";
 
         try {
-            Class.forName(configfile.getProperty("JDBC_DRIVER"));
+            Class.forName(PROPERTIES.getJDBC_DRIVER());
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, null, e);
         }//end ClassForName try block
@@ -42,9 +31,9 @@ public class UserEntry {
         logger.log(Level.INFO, "Creating statement...");
 
         try (Connection connection = DriverManager.getConnection(
-                configfile.getProperty("DB_URL"),
-                configfile.getProperty("USER"),
-                configfile.getProperty("PASS"));
+                PROPERTIES.getDB_URL(),
+                PROPERTIES.getUSER(),
+                PROPERTIES.getPASS());
 
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
