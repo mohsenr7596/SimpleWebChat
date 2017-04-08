@@ -19,7 +19,7 @@ public class UserProperties {
     public UserProperties(String name) {
         Properties config = new Properties();
         try {
-            config.load(UserProperties.class.getResourceAsStream(name));
+            config.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
         } catch (IOException e) {
             Logger.getAnonymousLogger().log(Level.SEVERE, null, e);
         }
