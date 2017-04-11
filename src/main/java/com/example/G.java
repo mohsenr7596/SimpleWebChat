@@ -1,9 +1,5 @@
 package com.example;
 
-import com.example.model.User;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 /**
@@ -11,9 +7,10 @@ import java.util.logging.Logger;
  */
 public class G {//Global Class
 
+    public static final String GLOBAL = "global";
+    public static final String LOGIN = "login";
+    public static final String USERNAME = "username";
     private static final Logger anonymousLogger = Logger.getAnonymousLogger();
-    private static final Map<String, User> USER_LIST = new ConcurrentHashMap<>();
-
 
     private G() {
     }
@@ -22,7 +19,4 @@ public class G {//Global Class
         return anonymousLogger;
     }
 
-    public static Map<String, User> userList() {
-        return USER_LIST;
-    }
 }

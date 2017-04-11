@@ -3,8 +3,8 @@ package com.example.listener; /**
  */
 
 import com.example.G;
+import com.example.Global;
 import com.example.entry.LogEntry;
-import com.example.model.User;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.util.logging.Level;
 
 @WebListener()
 public class LoginListener implements ServletContextListener,
@@ -31,6 +32,9 @@ public class LoginListener implements ServletContextListener,
          initialized(when the Web application is deployed).
          You can initialize servlet context related data here.
       */
+
+        sce.getServletContext().setAttribute(G.GLOBAL, new Global());
+        G.logger().log(Level.INFO, "Chat Application Initialized");
     }
 
     @Override
@@ -54,6 +58,11 @@ public class LoginListener implements ServletContextListener,
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
       /* Session is destroyed. */
+
+        Global global = (Global) se.getSession().getServletContext().getAttribute(G.GLOBAL);
+        String username = (String) se.getSession().getAttribute(G.USERNAME);
+        global.UserList().remove(username);
+        G.logger().log(Level.INFO, "%s logout!", username);
     }
 
     // -------------------------------------------------------
@@ -65,12 +74,15 @@ public class LoginListener implements ServletContextListener,
       /* This method is called when an attribute
          is added to a session.
       */
-        if ("login".equalsIgnoreCase(sbe.getName())) {
 
-            LogEntry.userLogin((String) sbe.getSession().getAttribute("username"));
-        } else if ("username".equalsIgnoreCase(sbe.getName())) {
-            User user = (User) sbe.getValue();
-            G.userList().put(user.getUsername(), user);
+        if (G.LOGIN.equalsIgnoreCase(sbe.getName())) {
+
+            LogEntry.userLogin((String) sbe.getSession().getAttribute(G.USERNAME));
+        } else if (G.USERNAME.equalsIgnoreCase(sbe.getName())) {
+
+            String value = (String) sbe.getValue();
+            Global attribute = (Global) sbe.getSession().getServletContext().getAttribute(G.GLOBAL);
+            attribute.UserList().add(value);
         }
     }
 

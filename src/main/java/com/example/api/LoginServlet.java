@@ -1,5 +1,7 @@
 package com.example.api;
 
+import com.example.G;
+import com.example.Global;
 import com.example.entry.UserEntry;
 
 import javax.servlet.ServletException;
@@ -34,8 +36,8 @@ public class LoginServlet extends HttpServlet {
         if (password.equals(request.getParameter("psw"))) {
 
             HttpSession session = request.getSession();
-            session.setAttribute("username", username);
-            session.setAttribute("login", Boolean.TRUE);
+            session.setAttribute(G.USERNAME, username);
+            session.setAttribute(G.LOGIN, Boolean.TRUE);
 
             response.sendRedirect("/");
         } else {
@@ -53,7 +55,8 @@ public class LoginServlet extends HttpServlet {
 
         if ("logout".equalsIgnoreCase(action)) {
 
-            request.getSession().removeAttribute("login");
+            request.getSession().invalidate();
+
         }
 
         response.sendRedirect("/login.xhtml");
