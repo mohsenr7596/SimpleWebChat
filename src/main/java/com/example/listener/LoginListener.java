@@ -5,6 +5,7 @@ package com.example.listener; /**
 import com.example.G;
 import com.example.Global;
 import com.example.entry.LogEntry;
+import com.mysql.jdbc.AbandonedConnectionCleanupThread;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,7 +14,12 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebListener()
 public class LoginListener implements ServletContextListener,
@@ -43,6 +49,21 @@ public class LoginListener implements ServletContextListener,
          (the Web application) is undeployed or
          Application Server shuts down.
       */
+        Enumeration<Driver> drivers = DriverManager.getDrivers();
+
+        // clear drivers
+        while (drivers.hasMoreElements()) {
+
+            try {
+                DriverManager.deregisterDriver(drivers.nextElement());
+            } catch (SQLException e) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, null, e);
+            }
+        }
+
+        // MySQL driver leaves around a thread. This static method cleans it up.
+        AbandonedConnectionCleanupThread.checkedShutdown();
+
     }
 
     // -------------------------------------------------------
