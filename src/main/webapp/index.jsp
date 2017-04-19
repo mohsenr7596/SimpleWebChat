@@ -11,8 +11,9 @@
 <head>
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>--%>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <%
         Boolean login = (Boolean) session.getAttribute("login");
@@ -26,20 +27,22 @@
     %>
 
     <%--JQuery for auto refresh--%>
-    <script>
-        var time = new Date().getTime();
-        $(document.body).bind("mousemove keypress", function (e) {
-            time = new Date().getTime();
+    <script type="text/javascript">
+
+        $('#something').click(function () {
+            location.reload();
         });
 
-        function refresh() {
-            if (new Date().getTime() - time >= 60000)
-                window.location.reload(true);
-            else
-                setTimeout(refresh, 10000);
-        }
+    </script>
 
-        setTimeout(refresh, 10000);
+    <!--Click Listener-->
+    <script>
+        var x = document.getElementsByClassName("list-group-item");
+        for (var i = 0; i < x.length; i++) {
+            x[i].onclick = function () {
+                console.log("AAAAAAAAA");
+            }
+        }
     </script>
 
 </head>
